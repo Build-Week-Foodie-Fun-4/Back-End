@@ -9,7 +9,7 @@ module.exports = {
 };
 
 function find() {
-  return db("users");
+  return db("users").select("username", "email", "city", "state");
 }
 
 function findBy(filter) {
@@ -18,6 +18,7 @@ function findBy(filter) {
 
 function findById(id) {
   return db("users")
+    .select("username", "email", "city", "state")
     .where({ id })
     .first();
 }
