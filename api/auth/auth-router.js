@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const validateRegistration = require("../middleware/register-middleware");
 const Users = require("../users/users-model");
 const signToken = require("../helpers/signToken");
 
@@ -18,7 +17,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.post("/register", validateRegistration, (req, res) => {
+router.post("/register", (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10);
   user.password = hash;
