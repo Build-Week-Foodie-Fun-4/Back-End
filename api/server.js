@@ -13,4 +13,8 @@ server.use(express.json());
 server.use("/auth", authRouter);
 server.use("/users", usersRouter);
 
+server.get("/", (req, res) => {
+  server.send("Hello from the api");
+});
+
 module.exports = server;
