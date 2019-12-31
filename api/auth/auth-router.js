@@ -4,19 +4,6 @@ const Users = require("../users/users-model");
 const signToken = require("../../helpers/signToken");
 const validateRegistration = require("../../middleware/registration-validation");
 
-router.get("/users", async (req, res) => {
-  let allUsers = await Users.find();
-  try {
-    if (allUsers) {
-      res.status(200).json(allUsers);
-    } else {
-      res.status(404).json("No users to retrieve");
-    }
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-
 router.post("/register", validateRegistration, (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10);
