@@ -1,0 +1,37 @@
+{
+  "name": "foodie-fun-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "start": "node index.js",
+    "test": "cross-env DB_ENV=testing jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Build-Week-Foodie-Fun-4/Back-End.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Build-Week-Foodie-Fun-4/Back-End/issues"
+  },
+  "homepage": "https://github.com/Build-Week-Foodie-Fun-4/Back-End#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.20.6",
+    "pg": "^7.17.0",
+    "sqlite": "^3.0.3"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
+  }
+}
