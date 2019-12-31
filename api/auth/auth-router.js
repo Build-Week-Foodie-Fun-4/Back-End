@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const Users = require("../users/users-model");
-const signToken = require("../helpers/signToken");
+const signToken = require("../../helpers/signToken");
 
 router.get("/users", async (req, res) => {
   let allUsers = await Users.find();
