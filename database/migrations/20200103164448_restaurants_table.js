@@ -64,4 +64,9 @@ exports.up = function(knex) {
     });
 };
 
-exports.down = function(knex) {};
+exports.down = function(knex) {
+  return knex.schema
+    .dropTableIfExists("restaurants")
+    .dropTableIfExists("restaurant_reviews")
+    .dropTableIfExists("menu_item_reviews");
+};

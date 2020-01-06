@@ -2,12 +2,12 @@ const db = require("../../database/db-config");
 
 module.exports = {
   add,
-  addByUserId,
   find,
   findBy,
   findById,
   remove,
-  update
+  update,
+  getUserRestaurants
 };
 
 function find() {
@@ -26,19 +26,12 @@ function findById(id) {
 }
 
 async function add(restaurant) {
-  const [id] = await db("restaurant").insert(restaurant, "id");
-  return findById(id);
-}
-
-async function addByUserId(restaurant, user_id) {
-  const [id] = await db("restaurant")
-    .insert(restaurant, "id")
-    .where("user_id", user_id);
+  const [id] = await db("restaurants").insert(restaurant, "id");
   return findById(id);
 }
 
 function remove(id) {
-  return db("restaurant")
+  return db("restaurants")
     .where({ id })
     .del();
 }
@@ -47,4 +40,12 @@ function update(id, changes) {
   return db("restaurants")
     .where({ id })
     .update(changes, "*");
+}
+
+function getUserRestaurants(user_id) {
+  return db("restaurants")
+    .select("restaurants.*")
+    .join("users", "restaurants.user_id", "users.id")
+    .where("user_id", user_id)
+    .first();
 }
