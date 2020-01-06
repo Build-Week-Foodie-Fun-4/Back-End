@@ -2,9 +2,8 @@ const router = require("express").Router();
 const Restaurants = require("./restaurants-model");
 
 // get all restaurants by user
-router.get("/", async (req, res) => {
-  let user_id = req.params.id;
-  let allRests = await Restaurants.findBy(user_id);
+router.get("/:id/restaurants", async (req, res) => {
+  let allRests = await Restaurants.findById(req.params.id);
   try {
     if (allRests) {
       res.status(200).json(allRests);
@@ -17,9 +16,7 @@ router.get("/", async (req, res) => {
 });
 
 // add restaurant
-//TODO need restaurant validation
-router.post("/", (req, res) => {
-  console.log(req.body);
+router.post("/:id/restaurants", (req, res) => {
   Restaurants.add(req.body)
     .then(rest => {
       console.log(rest);
@@ -30,23 +27,15 @@ router.post("/", (req, res) => {
     });
 });
 
-// router.post("/", async (req, res) => {
-//   const newRest = await Restaurants.add(req.params.id, req.body);
-//   console.log(newRest);
-//   try {
-//     if (newRest) {
-//       res.status(201).json(newRest);
-//     } else {
-//       res.status(401).json("something went wrong");
-//     }
-//   } catch (error) {
-//     res.status(500).json("Error adding restaurant");
-//   }
-// });
-
-// update restaurant
-// router.put();
-
 // delete restaurant
+// router.delete("/:id", (req, res) => {
+//   Restaurants.remove(req.params.id)
+//     .then(res => {
+//       res.status(201).json({ rest, message: "ok" });
+//     })
+//     .catch(error => {
+//       res.status(500).json("Error deleting restaurant");
+//     });
+// });
 
 module.exports = router;

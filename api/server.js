@@ -13,7 +13,7 @@ server.use(cors());
 server.use(express.json());
 server.use("/auth", authRouter);
 server.use("/users", usersRouter);
-server.use("/user/:id/restaurants", restaurantsRouter);
+server.use("/user", restaurantsRouter);
 
 server.get("/", (req, res) => {
   res.send("Hello from the api");
