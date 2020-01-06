@@ -44,18 +44,18 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-router.put("/:id", async (req, res) => {
-  let count = await Users.update(req.params.id, req.body);
-  let updatedUser = await Users.findById(req.params.id);
-  try {
-    if (count > 0) {
-      res.status(201).json({ message: "Update success", updatedUser });
-    } else {
-      res.status(401).json("Error, please try again");
-    }
-  } catch (err) {
-    res.status(500).json("Error updating user");
-  }
+router.put("/:id", (req, res) => {
+  Users.update(req.params.id, req.body)
+    .then(count => {
+      if (count > 0) {
+        Users.findById(req.params.id).then(user => {
+          res.status(201).json(user);
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ message: "Error updating user" });
+    });
 });
 
 module.exports = router;
