@@ -9,7 +9,7 @@ const authenticate = require("../middleware/authenticate-middleware"); // put in
 const server = express();
 
 server.use(helmet());
-server.use(cors());
+server.use(cors({ credentials: true, origin: "http://localhost:5000" }));
 server.use(express.json());
 server.use("/auth", authRouter);
 server.use("/users", usersRouter);

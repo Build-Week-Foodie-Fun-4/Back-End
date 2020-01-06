@@ -38,7 +38,7 @@ function remove(id) {
 
 function update(id, changes) {
   return db("restaurants")
-    .where("id", Number(id))
+    .where({ id })
     .update(changes, "*");
 }
 
