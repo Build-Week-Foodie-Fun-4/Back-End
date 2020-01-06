@@ -51,4 +51,19 @@ router.delete("/:id/restaurants/:restId", (req, res) => {
     });
 });
 
+// edit restaurant
+router.put("/:id/restaurants/:restId", async (req, res) => {
+  let count = await Restaurants.update(req.params.restId, req.body);
+  let updatedRest = await Restaurants.findById(req.params.restId);
+  try {
+    if (count > 0) {
+      res.status(201).json({ message: "Update success", updatedRest });
+    } else {
+      res.status(401).json("Error, please try again");
+    }
+  } catch (err) {
+    res.status(500).json("Error updating restaurant");
+  }
+});
+
 module.exports = router;
