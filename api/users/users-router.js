@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const Users = require("../users/users-model");
-const Restaurants = require("../restaurants/restaurants-model");
 
 router.get("/", async (req, res) => {
   let allUsers = await Users.find();
@@ -19,7 +18,7 @@ router.get("/:id", async (req, res) => {
   let user = await Users.findById(req.params.id);
   try {
     if (user) {
-      res.status(200).json("user");
+      res.status(200).json(user);
     } else {
       res.status(404).json("No user with that id found");
     }
