@@ -17,7 +17,17 @@ router.get("/", async (req, res) => {
 });
 
 // add restaurant
-// router.post("/", (req, res) => {});
+//TODO need restaurant validation
+router.post("/", (req, res) => {
+  let restuarant = req.body;
+  Restaurants.add(restuarant)
+    .then(rest => {
+      res.status(201).json(rest);
+    })
+    .catch(err => {
+      res.status(500).json("Failed to create new restaurant");
+    });
+});
 
 // update restaurant
 // router.put();
