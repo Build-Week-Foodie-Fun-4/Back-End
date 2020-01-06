@@ -19,15 +19,30 @@ router.get("/", async (req, res) => {
 // add restaurant
 //TODO need restaurant validation
 router.post("/", (req, res) => {
-  let restuarant = req.body;
-  Restaurants.add(restuarant)
+  console.log(req.body);
+  Restaurants.add(req.body)
     .then(rest => {
+      console.log(rest);
       res.status(201).json(rest);
     })
     .catch(err => {
-      res.status(500).json("Failed to create new restaurant");
+      res.status(500).json("Whyyyyyyy");
     });
 });
+
+// router.post("/", async (req, res) => {
+//   const newRest = await Restaurants.add(req.params.id, req.body);
+//   console.log(newRest);
+//   try {
+//     if (newRest) {
+//       res.status(201).json(newRest);
+//     } else {
+//       res.status(401).json("something went wrong");
+//     }
+//   } catch (error) {
+//     res.status(500).json("Error adding restaurant");
+//   }
+// });
 
 // update restaurant
 // router.put();
