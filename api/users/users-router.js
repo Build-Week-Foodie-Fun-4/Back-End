@@ -32,23 +32,6 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-// router.put("/:id", (req, res) => {
-//   Users.update(req.params.id, req.body)
-//     .then(user => {
-//       if (user) {
-//         res.status(200).json(user);
-//       } else {
-//         res.status(404).json({ message: "The user could not be found" });
-//       }
-//     })
-//     .catch(error => {
-//       console.log(error);
-//       res.status(500).json({
-//         message: "Error updating user"
-//       });
-//     });
-// });
-
 router.put("/:id", async (req, res) => {
   let count = await Users.update(req.params.id, req.body);
   let updatedUser = await Users.findById(req.params.id);
