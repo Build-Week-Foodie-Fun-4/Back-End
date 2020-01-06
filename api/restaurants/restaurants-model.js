@@ -30,18 +30,10 @@ async function add(restaurant) {
   return findById(id);
 }
 
-// function remove(id) {
-//   return db("restaurants")
-//     .where({ id })
-//     .del();
-// }
-
-async function remove(id) {
-  const removed = await findById(id);
-  await db("restaurants")
+function remove(id) {
+  return db("restaurants")
     .where({ id })
     .del();
-  return removed;
 }
 
 function update(id, changes) {
@@ -54,5 +46,6 @@ function getUserRestaurants(user_id) {
   return db("restaurants")
     .select("restaurants.*")
     .join("users", "restaurants.user_id", "users.id")
-    .where("user_id", user_id);
+    .where("user_id", user_id)
+    .first();
 }

@@ -34,20 +34,18 @@ router.post("/:id/restaurants", (req, res) => {
 router.delete("/:id/restaurants/:restId", (req, res) => {
   console.log(req.params.restId);
   Restaurants.remove(req.params.restId)
-    .then(deleted => {
-      if (deleted) {
-        res.status(201).json(success, deleted);
+    .then(count => {
+      console.log(count);
+      if (count > 0) {
+        res
+          .status(201)
+          .json(
+            `Restaurant with id: ${req.params.restId} deleted successfully`
+          );
       } else {
         res.status(500).json("Something went wrong deleting the restaurant");
       }
     })
-    // .then(count => {
-    //   if (count > 0) {
-    //     res.status(201).json({ message: "ok" });
-    //   } else {
-    //     res.status(500).json("Something went wrong deleting the restaurant");
-    //   }
-    // })
     .catch(error => {
       res.status(500).json("Error deleting restaurant");
     });
