@@ -146,7 +146,7 @@ router.put("/:id/restaurants/:restid/reviews/:revid", async (req, res) => {
 });
 
 // add menu item
-router.post("/:id/restaurants/:restid/dish", (req, res) => {
+router.post("/:id/restaurants/:restid/dishes", (req, res) => {
   Dishes.addDish(req.body)
     .then(dish => {
       if (dish) {
@@ -162,11 +162,26 @@ router.post("/:id/restaurants/:restid/dish", (req, res) => {
 });
 
 // delete menu item
+router.delete("/:id/restaurants/:restid/dishes/:dishid", (req, res) => {
+  Dishes.removeDish(req.params.dishid)
+    .then(count => {
+      if (count > 0) {
+        res
+          .status(201)
+          .json(`Dish with id: ${req.params.dishid} deleted successfully`);
+      } else {
+        res.status(500).json("Something went wrong deleting the dish");
+      }
+    })
+    .catch(error => {
+      res.status(500).json("Error deleting dish");
+    });
+});
 
 // update menu item
 
 // get menu item by id
-router.get("/:id/restaurants/:restid/dish/:dishid", (req, res) => {
+router.get("/:id/restaurants/:restid/dishes/:dishid", (req, res) => {
   Dishes.findDishById(req.params.dishid)
     .then(dish => {
       if (dish) {
