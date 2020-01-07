@@ -115,6 +115,19 @@ router.delete("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
 });
 
 // get restaurant review by id
+router.get("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
+  Reviews.findRestRevById(req.params.revid)
+    .then(review => {
+      if (review) {
+        res.status(200).json(review);
+      } else {
+        res.status(404).json("No review with that id");
+      }
+    })
+    .catch(error => {
+      res.status(500).json("Error retrieving review");
+    });
+});
 
 // update restaurant review
 router.put("/:id/restaurants/:restid/reviews/:revid", async (req, res) => {
