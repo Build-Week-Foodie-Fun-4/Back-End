@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Restaurants = require("./restaurants-model");
 const Reviews = require("../reviews/restaurantReviewModel");
+const MenuReviews = require("../reviews/menuReviewModel");
 const restValidation = require("../../middleware/restaurant-middleware");
 
 // get all restaurants by user
