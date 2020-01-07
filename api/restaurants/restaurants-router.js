@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Restaurants = require("./restaurants-model");
-const validation = require("../../middleware/restaurant-middleware");
+const Reviews = require("../reviews/restaurantReviewModel");
+const restValidation = require("../../middleware/restaurant-middleware");
 
 // get all restaurants by user
 router.get("/:id/restaurants", async (req, res) => {
@@ -17,7 +18,7 @@ router.get("/:id/restaurants", async (req, res) => {
 });
 
 // add restaurant
-router.post("/:id/restaurants", validation, (req, res) => {
+router.post("/:id/restaurants", restValidation, (req, res) => {
   Restaurants.add(req.body)
     .then(rest => {
       if (rest) {
@@ -53,7 +54,7 @@ router.delete("/:id/restaurants/:restId", (req, res) => {
 });
 
 // edit restaurant
-router.put("/:id/restaurants/:restId", validation, async (req, res) => {
+router.put("/:id/restaurants/:restId", restValidation, async (req, res) => {
   let count = await Restaurants.update(req.params.restId, req.body);
   let updatedRest = await Restaurants.findById(req.params.restId);
   try {
@@ -68,6 +69,19 @@ router.put("/:id/restaurants/:restId", validation, async (req, res) => {
 });
 
 // add restaurant review
+router.post("/:id/restaurants/:restid/reviews", (req, res) => {
+  Reviews.addRestRev(req.body)
+    .then(review => {
+      if (review) {
+        res.status(201).json(review);
+      } else {
+        res.status(401).json("Error adding review");
+      }
+    })
+    .catch(err => {
+      res.status(500).json("Database Error");
+    });
+});
 
 // delete restaurant review
 
