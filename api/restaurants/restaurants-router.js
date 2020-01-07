@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Restaurants = require("./restaurants-model");
-const validation = require("../../middleware/restaurant-middleware");
+const Reviews = require("../reviews/restaurantReviewModel");
+const restValidation = require("../../middleware/restaurant-middleware");
 
 // get all restaurants by user
 router.get("/:id/restaurants", async (req, res) => {
@@ -17,7 +18,7 @@ router.get("/:id/restaurants", async (req, res) => {
 });
 
 // add restaurant
-router.post("/:id/restaurants", validation, (req, res) => {
+router.post("/:id/restaurants", restValidation, (req, res) => {
   Restaurants.add(req.body)
     .then(rest => {
       if (rest) {
@@ -31,17 +32,31 @@ router.post("/:id/restaurants", validation, (req, res) => {
     });
 });
 
+// get restaurant by id
+router.get("/:id/restaurants/:restid", (req, res) => {
+  Restaurants.findById(req.params.restid)
+    .then(rest => {
+      if (rest) {
+        res.status(200).json(rest);
+      } else {
+        res.status(404).json("No restaurant with that id");
+      }
+    })
+    .catch(error => {
+      res.status(500).json("Error retrieving restaurant");
+    });
+});
+
 // delete restaurant
-router.delete("/:id/restaurants/:restId", (req, res) => {
-  console.log(req.params.restId);
-  Restaurants.remove(req.params.restId)
+router.delete("/:id/restaurants/:restid", (req, res) => {
+  console.log(req.params.restid);
+  Restaurants.remove(req.params.restid)
     .then(count => {
-      console.log(count);
       if (count > 0) {
         res
           .status(201)
           .json(
-            `Restaurant with id: ${req.params.restId} deleted successfully`
+            `Restaurant with id: ${req.params.restid} deleted successfully`
           );
       } else {
         res.status(500).json("Something went wrong deleting the restaurant");
@@ -53,9 +68,9 @@ router.delete("/:id/restaurants/:restId", (req, res) => {
 });
 
 // edit restaurant
-router.put("/:id/restaurants/:restId", validation, async (req, res) => {
-  let count = await Restaurants.update(req.params.restId, req.body);
-  let updatedRest = await Restaurants.findById(req.params.restId);
+router.put("/:id/restaurants/:restid", restValidation, async (req, res) => {
+  let count = await Restaurants.update(req.params.restid, req.body);
+  let updatedRest = await Restaurants.findById(req.params.restid);
   try {
     if (count > 0) {
       res.status(201).json({ message: "Update success", updatedRest });
@@ -68,10 +83,66 @@ router.put("/:id/restaurants/:restId", validation, async (req, res) => {
 });
 
 // add restaurant review
+router.post("/:id/restaurants/:restid/reviews", (req, res) => {
+  Reviews.addRestRev(req.body)
+    .then(review => {
+      if (review) {
+        res.status(201).json(review);
+      } else {
+        res.status(401).json("Error adding review");
+      }
+    })
+    .catch(err => {
+      res.status(500).json("Database Error");
+    });
+});
 
 // delete restaurant review
+router.delete("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
+  Reviews.removeRestRev(req.params.revid)
+    .then(count => {
+      if (count > 0) {
+        res
+          .status(201)
+          .json(`Review with id: ${req.params.restid} deleted successfully`);
+      } else {
+        res.status(500).json("Something went wrong deleting the review");
+      }
+    })
+    .catch(error => {
+      res.status(500).json("Error deleting review");
+    });
+});
+
+// get restaurant review by id
+router.get("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
+  Reviews.findRestRevById(req.params.revid)
+    .then(review => {
+      if (review) {
+        res.status(200).json(review);
+      } else {
+        res.status(404).json("No review with that id");
+      }
+    })
+    .catch(error => {
+      res.status(500).json("Error retrieving review");
+    });
+});
 
 // update restaurant review
+router.put("/:id/restaurants/:restid/reviews/:revid", async (req, res) => {
+  let count = await Reviews.updateRestRev(req.params.revid, req.body);
+  let updatedRev = await Reviews.findRestRevById(req.params.revid);
+  try {
+    if (count > 0) {
+      res.status(201).json({ message: "Update success", updatedRev });
+    } else {
+      res.status(401).json("Error, please try again");
+    }
+  } catch (err) {
+    res.status(500).json("Error updating review");
+  }
+});
 
 // add menu item review
 

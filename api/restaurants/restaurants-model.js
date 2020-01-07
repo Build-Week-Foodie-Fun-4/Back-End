@@ -46,6 +46,5 @@ function getUserRestaurants(user_id) {
   return db("restaurants")
     .select("restaurants.*")
     .join("users", "restaurants.user_id", "users.id")
-    .where("user_id", user_id)
-    .first();
+    .where("user_id", user_id);
 }
