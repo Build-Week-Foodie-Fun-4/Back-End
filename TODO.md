@@ -1,3 +1,1 @@
-- Registration should log user in automatically
 - Add photo upload
-- Add validate user_id middleware
