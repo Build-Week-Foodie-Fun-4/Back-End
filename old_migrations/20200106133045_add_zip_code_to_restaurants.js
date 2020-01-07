@@ -5,7 +5,7 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.table("restaurants", tbl => {
-    tbl.dropColumn("zip");
-  });
+  // return knex.schema.table("restaurants", tbl => {
+  //   tbl.dropColumn("zip");
+  // });
 };
