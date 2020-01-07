@@ -32,6 +32,21 @@ router.post("/:id/restaurants", restValidation, (req, res) => {
     });
 });
 
+// get restaurant by id
+router.get("/:id/restaurants/:restid", (req, res) => {
+  Restaurants.findById(req.params.restid)
+    .then(rest => {
+      if (rest) {
+        res.status(200).json(rest);
+      } else {
+        res.status(404).json("No restaurant with that id");
+      }
+    })
+    .catch(error => {
+      res.status(500).json("Error retrieving restaurant");
+    });
+});
+
 // delete restaurant
 router.delete("/:id/restaurants/:restid", (req, res) => {
   console.log(req.params.restid);
@@ -99,7 +114,22 @@ router.delete("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
     });
 });
 
+// get restaurant review by id
+
 // update restaurant review
+router.put("/:id/restaurants/:restid/reviews/:revid", async (req, res) => {
+  let count = await Restaurants.updateRestRev(req.params.revid, req.body);
+  let updatedRev = await Restaurants.findRestRevById(req.params.revid);
+  try {
+    if (count > 0) {
+      res.status(201).json({ message: "Update success", updatedRev });
+    } else {
+      res.status(401).json("Error, please try again");
+    }
+  } catch (err) {
+    res.status(500).json("Error updating review");
+  }
+});
 
 // add menu item review
 
