@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Users = require("../users/users-model");
 
+// get all users
 router.get("/", async (req, res) => {
   let allUsers = await Users.find();
   try {
@@ -14,6 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// get user by id
 router.get("/:id", async (req, res) => {
   let user = await Users.findById(req.params.id);
   try {
@@ -27,6 +29,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// delete user
 router.delete("/:id", (req, res) => {
   Users.remove(req.params.id)
     .then(count => {
@@ -44,6 +47,7 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// edit user
 router.put("/:id", (req, res) => {
   Users.update(req.params.id, req.body)
     .then(count => {
