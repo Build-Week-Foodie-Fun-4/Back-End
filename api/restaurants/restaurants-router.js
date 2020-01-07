@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Restaurants = require("./restaurants-model");
 const Reviews = require("../reviews/restaurantReviewModel");
-const MenuReviews = require("../reviews/menuReviewModel");
+const Dishes = require("../reviews/dishesModel");
 const restValidation = require("../../middleware/restaurant-middleware");
 
 // get all restaurants by user
@@ -145,10 +145,39 @@ router.put("/:id/restaurants/:restid/reviews/:revid", async (req, res) => {
   }
 });
 
-// add menu item review
+// add menu item
+router.post("/:id/restaurants/:restid/dish", (req, res) => {
+  Dishes.addDish(req.body)
+    .then(dish => {
+      if (dish) {
+        res.status(201).json(dish);
+      } else {
+        res.status(401).json("Error adding menu item");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json("Database Error");
+    });
+});
 
-// delete menu item review
+// delete menu item
 
-// update menu item review
+// update menu item
+
+// get menu item by id
+router.get("/:id/restaurants/:restid/dish/:dishid", (req, res) => {
+  Dishes.findDishById(req.params.dishid)
+    .then(dish => {
+      if (dish) {
+        res.status(200).json(dish);
+      } else {
+        res.status(404).json("No dish with that id");
+      }
+    })
+    .catch(error => {
+      res.status(500).json("Error retrieving dish");
+    });
+});
 
 module.exports = router;
