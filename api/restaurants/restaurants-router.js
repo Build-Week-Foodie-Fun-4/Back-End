@@ -118,8 +118,8 @@ router.delete("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
 
 // update restaurant review
 router.put("/:id/restaurants/:restid/reviews/:revid", async (req, res) => {
-  let count = await Restaurants.updateRestRev(req.params.revid, req.body);
-  let updatedRev = await Restaurants.findRestRevById(req.params.revid);
+  let count = await Reviews.updateRestRev(req.params.revid, req.body);
+  let updatedRev = await Reviews.findRestRevById(req.params.revid);
   try {
     if (count > 0) {
       res.status(201).json({ message: "Update success", updatedRev });
