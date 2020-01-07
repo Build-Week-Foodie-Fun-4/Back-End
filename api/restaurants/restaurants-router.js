@@ -57,7 +57,7 @@ router.put("/:id/restaurants/:restId", async (req, res) => {
   let updatedRest = await Restaurants.findById(req.params.restId);
   try {
     if (count > 0) {
-      res.status(201).json({ message: "Update success" });
+      res.status(201).json({ message: "Update success", updatedRest });
     } else {
       res.status(401).json("Error, please try again");
     }

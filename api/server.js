@@ -4,7 +4,7 @@ const helmet = require("helmet");
 const authRouter = require("../api/auth/auth-router");
 const usersRouter = require("../api/users/users-router");
 const restaurantsRouter = require("../api/restaurants/restaurants-router");
-const authenticate = require("../middleware/authenticate-middleware"); // put in router that needs authentication
+const authenticate = require("../middleware/authenticate-middleware");
 
 const server = express();
 

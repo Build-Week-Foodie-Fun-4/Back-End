@@ -39,7 +39,7 @@ function remove(id) {
 function update(id, changes) {
   return db("restaurants")
     .where({ id })
-    .update(changes, "*");
+    .update(changes, "id");
 }
 
 function getUserRestaurants(user_id) {
