@@ -67,4 +67,16 @@ router.put("/:id/restaurants/:restId", validation, async (req, res) => {
   }
 });
 
+// add restaurant review
+
+// delete restaurant review
+
+// update restaurant review
+
+// add menu item review
+
+// delete menu item review
+
+// update menu item review
+
 module.exports = router;
