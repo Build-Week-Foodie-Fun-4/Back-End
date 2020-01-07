@@ -69,7 +69,7 @@ router.delete("/:id/restaurants/:restid", (req, res) => {
 });
 
 // edit restaurant
-router.put("/:id/restaurants/:restid", restValidation, async (req, res) => {
+router.put("/:id/restaurants/:restid", async (req, res) => {
   let count = await Restaurants.update(req.params.restid, req.body);
   let updatedRest = await Restaurants.findById(req.params.restid);
   try {
@@ -179,6 +179,19 @@ router.delete("/:id/restaurants/:restid/dishes/:dishid", (req, res) => {
 });
 
 // update menu item
+router.put("/:id/restaurants/:restid/dishes/:dishid", async (req, res) => {
+  let count = await Dishes.updateDish(req.params.dishid, req.body);
+  let updatedDish = await Dishes.findDishById(req.params.dishid);
+  try {
+    if (count > 0) {
+      res.status(201).json({ message: "Update success", updatedDish });
+    } else {
+      res.status(401).json("Error, please try again");
+    }
+  } catch (err) {
+    res.status(500).json("Error updating dish");
+  }
+});
 
 // get menu item by id
 router.get("/:id/restaurants/:restid/dishes/:dishid", (req, res) => {
