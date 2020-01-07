@@ -8,9 +8,14 @@ const restricted = require("../middleware/authenticate-middleware");
 
 const server = express();
 
+server.options("*", cors());
 server.use(helmet());
 server.use(
-  cors({ credentials: true, origin: "https://foodie-fun-4.firebaseapp.com/" })
+  cors({
+    credentials: true,
+    origin: "https://foodie-fun-4.firebaseapp.com/",
+    allowedHeaders: ["Content-Type", "Authorization"]
+  })
 );
 server.use(express.json());
 server.use("/auth", authRouter);
