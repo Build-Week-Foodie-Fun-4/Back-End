@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Restaurants = require("./restaurants-model");
+const validation = require("../../middleware/restaurant-middleware");
 
 // get all restaurants by user
 router.get("/:id/restaurants", async (req, res) => {
@@ -16,7 +17,7 @@ router.get("/:id/restaurants", async (req, res) => {
 });
 
 // add restaurant
-router.post("/:id/restaurants", (req, res) => {
+router.post("/:id/restaurants", validation, (req, res) => {
   Restaurants.add(req.body)
     .then(rest => {
       if (rest) {
@@ -52,7 +53,7 @@ router.delete("/:id/restaurants/:restId", (req, res) => {
 });
 
 // edit restaurant
-router.put("/:id/restaurants/:restId", async (req, res) => {
+router.put("/:id/restaurants/:restId", validation, async (req, res) => {
   let count = await Restaurants.update(req.params.restId, req.body);
   let updatedRest = await Restaurants.findById(req.params.restId);
   try {
