@@ -1,5 +1,5 @@
 - Registration should log user in automatically
 - Add photo upload
-- Add restaurant validation for adding and editing
-- Add protected middleware
-- Remove unique constraint for restaurant and address, and add those constraints in the middleware
+- Remove unique constraint for restaurant name and address
+- Add reviews table
+- Add validate user_id middleware
