@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Restaurants = require("./restaurants-model");
 const Reviews = require("../reviews/restaurantReviewModel");
+const Dishes = require("../reviews/dishesModel");
 const restValidation = require("../../middleware/restaurant-middleware");
 
 // get all restaurants by user
@@ -68,7 +69,7 @@ router.delete("/:id/restaurants/:restid", (req, res) => {
 });
 
 // edit restaurant
-router.put("/:id/restaurants/:restid", restValidation, async (req, res) => {
+router.put("/:id/restaurants/:restid", async (req, res) => {
   let count = await Restaurants.update(req.params.restid, req.body);
   let updatedRest = await Restaurants.findById(req.params.restid);
   try {
@@ -144,10 +145,67 @@ router.put("/:id/restaurants/:restid/reviews/:revid", async (req, res) => {
   }
 });
 
-// add menu item review
+// add menu item
+router.post("/:id/restaurants/:restid/dishes", (req, res) => {
+  Dishes.addDish(req.body)
+    .then(dish => {
+      if (dish) {
+        res.status(201).json(dish);
+      } else {
+        res.status(401).json("Error adding menu item");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json("Database Error");
+    });
+});
 
-// delete menu item review
+// delete menu item
+router.delete("/:id/restaurants/:restid/dishes/:dishid", (req, res) => {
+  Dishes.removeDish(req.params.dishid)
+    .then(count => {
+      if (count > 0) {
+        res
+          .status(201)
+          .json(`Dish with id: ${req.params.dishid} deleted successfully`);
+      } else {
+        res.status(500).json("Something went wrong deleting the dish");
+      }
+    })
+    .catch(error => {
+      res.status(500).json("Error deleting dish");
+    });
+});
 
-// update menu item review
+// update menu item
+router.put("/:id/restaurants/:restid/dishes/:dishid", async (req, res) => {
+  let count = await Dishes.updateDish(req.params.dishid, req.body);
+  let updatedDish = await Dishes.findDishById(req.params.dishid);
+  try {
+    if (count > 0) {
+      res.status(201).json({ message: "Update success", updatedDish });
+    } else {
+      res.status(401).json("Error, please try again");
+    }
+  } catch (err) {
+    res.status(500).json("Error updating dish");
+  }
+});
+
+// get menu item by id
+router.get("/:id/restaurants/:restid/dishes/:dishid", (req, res) => {
+  Dishes.findDishById(req.params.dishid)
+    .then(dish => {
+      if (dish) {
+        res.status(200).json(dish);
+      } else {
+        res.status(404).json("No dish with that id");
+      }
+    })
+    .catch(error => {
+      res.status(500).json("Error retrieving dish");
+    });
+});
 
 module.exports = router;
