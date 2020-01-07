@@ -8,7 +8,6 @@ const restricted = require("../middleware/authenticate-middleware");
 
 const server = express();
 
-server.options("*", cors());
 server.use(helmet());
 server.use(
   cors({
@@ -17,6 +16,7 @@ server.use(
     allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
+server.options("*", cors());
 server.use(express.json());
 server.use("/auth", authRouter);
 server.use("/users", usersRouter);
