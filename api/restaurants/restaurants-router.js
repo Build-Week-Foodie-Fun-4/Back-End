@@ -33,16 +33,15 @@ router.post("/:id/restaurants", restValidation, (req, res) => {
 });
 
 // delete restaurant
-router.delete("/:id/restaurants/:restId", (req, res) => {
-  console.log(req.params.restId);
-  Restaurants.remove(req.params.restId)
+router.delete("/:id/restaurants/:restid", (req, res) => {
+  console.log(req.params.restid);
+  Restaurants.remove(req.params.restid)
     .then(count => {
-      console.log(count);
       if (count > 0) {
         res
           .status(201)
           .json(
-            `Restaurant with id: ${req.params.restId} deleted successfully`
+            `Restaurant with id: ${req.params.restid} deleted successfully`
           );
       } else {
         res.status(500).json("Something went wrong deleting the restaurant");
@@ -54,9 +53,9 @@ router.delete("/:id/restaurants/:restId", (req, res) => {
 });
 
 // edit restaurant
-router.put("/:id/restaurants/:restId", restValidation, async (req, res) => {
-  let count = await Restaurants.update(req.params.restId, req.body);
-  let updatedRest = await Restaurants.findById(req.params.restId);
+router.put("/:id/restaurants/:restid", restValidation, async (req, res) => {
+  let count = await Restaurants.update(req.params.restid, req.body);
+  let updatedRest = await Restaurants.findById(req.params.restid);
   try {
     if (count > 0) {
       res.status(201).json({ message: "Update success", updatedRest });
@@ -84,6 +83,21 @@ router.post("/:id/restaurants/:restid/reviews", (req, res) => {
 });
 
 // delete restaurant review
+router.delete("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
+  Reviews.removeRestRev(req.params.revid)
+    .then(count => {
+      if (count > 0) {
+        res
+          .status(201)
+          .json(`Review with id: ${req.params.restid} deleted successfully`);
+      } else {
+        res.status(500).json("Something went wrong deleting the review");
+      }
+    })
+    .catch(error => {
+      res.status(500).json("Error deleting review");
+    });
+});
 
 // update restaurant review
 
