@@ -120,18 +120,33 @@ router.delete("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
     });
 });
 
-// get restaurant review by id
-router.get("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
-  Reviews.findRestRevById(req.params.revid)
+// get restaurant review by restaurant id
+// router.get("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
+//   Reviews.findRestRevById(req.params.revid)
+//     .then(review => {
+//       if (review) {
+//         res.status(200).json(review);
+//       } else {
+//         res.status(404).json("No review with that id");
+//       }
+//     })
+//     .catch(error => {
+//       res.status(500).json("Error retrieving review");
+//     });
+// });
+
+router.get("/:id/restaurants/:restid/reviews", (req, res) => {
+  Reviews.findRestRevByRestId(req.params.restid)
     .then(review => {
       if (review) {
-        res.status(200).json(review);
+        res.status(201).json(review);
       } else {
-        res.status(404).json("No review with that id");
+        res.status(404).json("Restaurant does not have any reviews");
       }
     })
-    .catch(error => {
-      res.status(500).json("Error retrieving review");
+    .catch(err => {
+      console.log(err);
+      res.status(500).json("Database Error");
     });
 });
 
