@@ -3,8 +3,7 @@ const db = require("../../database/db-config");
 module.exports = {
   addRestRev,
   findRestRevs,
-  findRestRevById,
-  findRestRevBy,
+  findRestRevByRestId,
   removeRestRev,
   updateRestRev
 };
@@ -17,10 +16,10 @@ function findRestRevBy(filter) {
   return db("restaurant_reviews").where(filter);
 }
 
-function findRestRevById(id) {
+function findRestRevByRestId(restid) {
   return db("restaurant_reviews")
     .select("*")
-    .where({ id })
+    .where("restaurant_id", restid)
     .first();
 }
 
