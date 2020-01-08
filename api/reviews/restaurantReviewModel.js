@@ -13,10 +13,6 @@ function findRestRevs() {
   return db("restaurant_reviews");
 }
 
-function findRestRevBy(filter) {
-  return db("restaurant_reviews").where(filter);
-}
-
 function findRestRevByRestId(restid) {
   return db("restaurant_reviews")
     .select("*")
