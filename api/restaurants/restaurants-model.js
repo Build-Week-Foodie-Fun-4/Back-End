@@ -20,7 +20,22 @@ function findBy(filter) {
 
 function findById(restid) {
   return db("restaurants")
-    .select("*")
+    .select(
+      "restaurants.id",
+      "restaurants.restaurant_name",
+      "restaurants.user_id",
+      "restaurants.city",
+      "restaurants.state",
+      "restaurants.zip",
+      "restaurants.cuisine",
+      "restaurant_reviews.restaurant_review",
+      "restaurant_reviews.restaurant_rating",
+      "restaurant_reviews.visit_date",
+      "dishes.dish_name",
+      "dishes.price",
+      "dishes.dish_rating",
+      "dishes.dish_review"
+    )
     .leftJoin(
       "restaurant_reviews",
       "restaurants.id",
