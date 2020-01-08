@@ -1,1 +1,3 @@
 - Add photo upload
+- Finish documentation
+- Rename columns to be unique
