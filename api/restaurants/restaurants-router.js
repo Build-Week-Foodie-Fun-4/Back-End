@@ -55,7 +55,6 @@ router.get("/:id/restaurants/:restid", (req, res) => {
 
 // delete restaurant
 router.delete("/:id/restaurants/:restid", (req, res) => {
-  console.log(req.params.restid);
   Restaurants.remove(req.params.restid)
     .then(count => {
       if (count > 0) {

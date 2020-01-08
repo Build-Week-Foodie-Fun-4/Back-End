@@ -3,7 +3,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const authRouter = require("../api/auth/auth-router");
 const usersRouter = require("../api/users/users-router");
-const uploadRouter = require("../api/upload/upload-router");
+const uploadRouter = require("../api/images/images-router");
 const restaurantsRouter = require("../api/restaurants/restaurants-router");
 const restricted = require("../middleware/authenticate-middleware");
 

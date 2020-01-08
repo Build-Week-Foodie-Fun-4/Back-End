@@ -64,33 +64,28 @@ function update(id, changes) {
 }
 
 function getUserRestaurants(user_id) {
-  return (
-    db("restaurants")
-      // .select("restaurants.*")
-      // .join("users", "restaurants.user_id", "users.id"
-      // return db("restaurants")
-      .select(
-        "restaurants.id",
-        "restaurants.restaurant_name",
-        "restaurants.user_id",
-        "restaurants.city",
-        "restaurants.state",
-        "restaurants.zip",
-        "restaurants.cuisine",
-        "restaurant_reviews.restaurant_review",
-        "restaurant_reviews.restaurant_rating",
-        "restaurant_reviews.visit_date",
-        "dishes.dish_name",
-        "dishes.price",
-        "dishes.dish_rating",
-        "dishes.dish_review"
-      )
-      .leftJoin(
-        "restaurant_reviews",
-        "restaurants.id",
-        "restaurant_reviews.restaurant_id"
-      )
-      .leftJoin("dishes", "restaurants.id", "dishes.restaurant_id")
-      .where("user_id", user_id)
-  );
+  return db("restaurants")
+    .select(
+      "restaurants.id",
+      "restaurants.restaurant_name",
+      "restaurants.user_id",
+      "restaurants.city",
+      "restaurants.state",
+      "restaurants.zip",
+      "restaurants.cuisine",
+      "restaurant_reviews.restaurant_review",
+      "restaurant_reviews.restaurant_rating",
+      "restaurant_reviews.visit_date",
+      "dishes.dish_name",
+      "dishes.price",
+      "dishes.dish_rating",
+      "dishes.dish_review"
+    )
+    .leftJoin(
+      "restaurant_reviews",
+      "restaurants.id",
+      "restaurant_reviews.restaurant_id"
+    )
+    .leftJoin("dishes", "restaurants.id", "dishes.restaurant_id")
+    .where("user_id", user_id);
 }
