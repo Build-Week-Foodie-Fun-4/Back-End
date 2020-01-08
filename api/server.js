@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
 const helmet = require("helmet");
 const authRouter = require("../api/auth/auth-router");
 const usersRouter = require("../api/users/users-router");
@@ -7,6 +9,25 @@ const restaurantsRouter = require("../api/restaurants/restaurants-router");
 const restricted = require("../middleware/authenticate-middleware");
 
 const server = express();
+
+// Public folder for images
+server.use(express.static("./public"));
+
+// set storage engine
+const storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: function(req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  }
+});
+
+// init upload
+const upload = multer({
+  storage: storage
+}).single("myImage");
 
 server.use(helmet());
 server.use(
@@ -33,6 +54,17 @@ server.use("/user", restricted, restaurantsRouter);
 
 server.get("/", (req, res) => {
   res.send("Hello from the api");
+});
+
+server.post("/upload", (req, res) => {
+  upload(req, res, err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(req.file);
+      res.send("working?");
+    }
+  });
 });
 
 module.exports = server;
