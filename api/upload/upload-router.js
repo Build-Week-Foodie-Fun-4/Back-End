@@ -1,15 +1,25 @@
 const router = require("express").Router();
 const upload = require("../../helpers/fileUpload");
-const ImageUpload = require("./upload-model");
+const Images = require("./images-model");
 
-router.post("/", (req, res) => {
+router.post("/restaurants", (req, res) => {
   upload(req, res, err => {
     if (err) {
       console.log(err);
     } else {
       console.log(req.file);
       res.send("success");
-      // add to database function from model
+    }
+  });
+});
+
+router.post("/dishes", (req, res) => {
+  upload(req, res, err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(req.file);
+      res.send("success");
     }
   });
 });
