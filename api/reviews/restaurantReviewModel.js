@@ -5,6 +5,7 @@ module.exports = {
   findRestRevs,
   findRestRevByRestId,
   removeRestRev,
+  findRestRevById,
   updateRestRev
 };
 
@@ -20,6 +21,12 @@ function findRestRevByRestId(restid) {
   return db("restaurant_reviews")
     .select("*")
     .where("restaurant_id", restid)
+    .first();
+}
+
+function findRestRevById(id) {
+  return db("restaurant_reviews")
+    .where({ id })
     .first();
 }
 

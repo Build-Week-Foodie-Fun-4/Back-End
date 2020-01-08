@@ -99,6 +99,7 @@ router.post("/:id/restaurants/:restid/reviews", (req, res) => {
       }
     })
     .catch(err => {
+      console.log(err);
       res.status(500).json("Database Error");
     });
 });
@@ -110,7 +111,7 @@ router.delete("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
       if (count > 0) {
         res
           .status(201)
-          .json(`Review with id: ${req.params.restid} deleted successfully`);
+          .json(`Review with id: ${req.params.revid} deleted successfully`);
       } else {
         res.status(500).json("Something went wrong deleting the review");
       }
@@ -120,23 +121,25 @@ router.delete("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
     });
 });
 
-// get restaurant review by restaurant id
-// router.get("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
-//   Reviews.findRestRevById(req.params.revid)
-//     .then(review => {
-//       if (review) {
-//         res.status(200).json(review);
-//       } else {
-//         res.status(404).json("No review with that id");
-//       }
-//     })
-//     .catch(error => {
-//       res.status(500).json("Error retrieving review");
-//     });
-// });
-
+// get review by restaurant id
 router.get("/:id/restaurants/:restid/reviews", (req, res) => {
   Reviews.findRestRevByRestId(req.params.restid)
+    .then(review => {
+      if (review) {
+        res.status(201).json(review);
+      } else {
+        res.status(404).json("Restaurant does not have any reviews");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json("Database Error");
+    });
+});
+
+// get review by  id
+router.get("/:id/restaurants/:restid/reviews/:revid", (req, res) => {
+  Reviews.findRestRevById(req.params.revid)
     .then(review => {
       if (review) {
         res.status(201).json(review);
