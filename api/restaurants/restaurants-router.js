@@ -231,4 +231,20 @@ router.get("/:id/restaurants/:restid/dishes/:dishid", (req, res) => {
     });
 });
 
+// get menu item by restaurant id
+router.get("/:id/restaurants/:restid/dishes", (req, res) => {
+  Dishes.findDishesByRestId(req.params.restid)
+    .then(dishes => {
+      if (dishes) {
+        res.status(201).json(dishes);
+      } else {
+        res.status(404).json("Restaurant does not have any dishes");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json("Database Error");
+    });
+});
+
 module.exports = router;

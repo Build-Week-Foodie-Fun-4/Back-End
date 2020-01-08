@@ -4,6 +4,7 @@ module.exports = {
   addDish,
   findDish,
   findDishById,
+  findDishesByRestId,
   findDishBy,
   removeDish,
   updateDish
@@ -22,6 +23,12 @@ function findDishById(id) {
     .select("*")
     .where({ id })
     .first();
+}
+
+function findDishesByRestId(restid) {
+  return db("dishes")
+    .select("*")
+    .where("restaurant_id", restid);
 }
 
 async function addDish(dish) {
