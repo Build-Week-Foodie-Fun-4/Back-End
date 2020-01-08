@@ -18,10 +18,16 @@ function findBy(filter) {
   return db("restaurants").where(filter);
 }
 
-function findById(id) {
+function findById(restid) {
   return db("restaurants")
     .select("*")
-    .where({ id })
+    .join(
+      "restaurant_reviews",
+      "restaurants.id",
+      "restaurant_reviews.restaurant_id"
+    )
+    .join("dishes", "restaurants.id", "dishes.restaurant_id")
+    .where("restaurants.id", restid)
     .first();
 }
 

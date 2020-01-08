@@ -1,15 +1,15 @@
 const Restaurants = require("../api/restaurants/restaurants-model");
 
 module.exports = (req, res, next) => {
-  const { name, user_id, cuisine, street_address, city, state, zip } = req.body;
+  const { name, cuisine, user_id, street_address, city, state, zip } = req.body;
   if (
     !name ||
-    !user_id ||
     !cuisine ||
     !street_address ||
     !city ||
     !state ||
-    !zip
+    !zip ||
+    !user_id
   ) {
     res.status(401).json("Restaurant is missing some information");
   } else {

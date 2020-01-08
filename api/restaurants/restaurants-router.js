@@ -44,6 +44,7 @@ router.get("/:id/restaurants/:restid", (req, res) => {
       }
     })
     .catch(error => {
+      console.log(error);
       res.status(500).json("Error retrieving restaurant");
     });
 });
