@@ -3,10 +3,14 @@ const cors = require("cors");
 const helmet = require("helmet");
 const authRouter = require("../api/auth/auth-router");
 const usersRouter = require("../api/users/users-router");
+const uploadRouter = require("../api/images/images-router");
 const restaurantsRouter = require("../api/restaurants/restaurants-router");
 const restricted = require("../middleware/authenticate-middleware");
 
 const server = express();
+
+// Public folder for images
+server.use(express.static("./public"));
 
 server.use(helmet());
 server.use(
@@ -30,6 +34,7 @@ server.use(express.json());
 server.use("/auth", authRouter);
 server.use("/users", usersRouter);
 server.use("/user", restricted, restaurantsRouter);
+server.use("/upload", uploadRouter);
 
 server.get("/", (req, res) => {
   res.send("Hello from the api");

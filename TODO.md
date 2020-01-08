@@ -1,3 +1,1 @@
-- Add photo upload
-- middleware, one review per restaurant
-- Get all dish reviews by restaurant id
+- add error if no restaurant uploaded
