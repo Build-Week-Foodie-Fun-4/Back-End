@@ -21,12 +21,12 @@ function findBy(filter) {
 function findById(restid) {
   return db("restaurants")
     .select("*")
-    .join(
+    .leftJoin(
       "restaurant_reviews",
       "restaurants.id",
       "restaurant_reviews.restaurant_id"
     )
-    .join("dishes", "restaurants.id", "dishes.restaurant_id")
+    .leftJoin("dishes", "restaurants.id", "dishes.restaurant_id")
     .where("restaurants.id", restid)
     .first();
 }
