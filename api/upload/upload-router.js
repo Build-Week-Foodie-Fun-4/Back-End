@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const upload = require("../../helpers/fileUpload");
+const ImageUpload = require("./upload-model");
 
 router.post("/", (req, res) => {
   upload(req, res, err => {
@@ -8,6 +9,7 @@ router.post("/", (req, res) => {
     } else {
       console.log(req.file);
       res.send("success");
+      // add to database function from model
     }
   });
 });
