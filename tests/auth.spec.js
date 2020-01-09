@@ -2,7 +2,7 @@ const server = require("../api/server");
 const request = require("supertest");
 const db = require("../database/db-config");
 
-beforeEach(() => db.seed.run());
+// beforeEach(() => db("users").truncate());
 
 describe("authentication", () => {
   it("registers a user", async () => {
