@@ -1,20 +1,17 @@
 const request = require("supertest");
 const server = require("../api/server");
 
-describe("server.js", function() {
-  describe("environment", function() {
-    it("should set environment to testing", function() {
+describe("server.js", () => {
+  describe("environment", () => {
+    it("should set environment to testing", () => {
       expect(process.env.DB_ENV).toBe("testing");
     });
   });
 
-  describe("GET /", function() {
-    it("should return a 200 OK", function() {
-      return request(server)
-        .get("/")
-        .then(res => {
-          expect(res.status).toBe(200);
-        });
+  describe("GET /", () => {
+    it("should return a 200 OK", async () => {
+      const res = await request(server).get("/");
+      expect(res.status).toBe(200);
     });
   });
 });
