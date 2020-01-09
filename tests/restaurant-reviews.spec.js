@@ -23,4 +23,11 @@ describe("restaurant_reviews", () => {
     const res = await request(server).get("/user/1/restaurants/1/reviews");
     expect(res.status).toBe(200);
   });
+
+  it("updates restaurant review", async () => {
+    const res = await request(server)
+      .put("/user/1/restaurants/1/reviews/1")
+      .send({ restaurant_rating: 1 });
+    expect(res.status).toBe(201);
+  });
 });
