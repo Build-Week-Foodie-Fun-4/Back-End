@@ -15,15 +15,3 @@ describe("images", () => {
     expect(res.status).toBe(201);
   });
 });
-
-//     .post('/api/v1/documentations/upload')           // Attach the file with key 'file' which is corresponding to your endpoint setting.
-//     .attach('file', filePath)
-//     .then((res) => {
-//       const { success, message, filePath } = res.body;
-//       expect(success).toBeTruthy();
-//       expect(message).toBe('Uploaded successfully');
-//       expect(typeof filePath).toBeTruthy();            // store file data for following tests
-//       testFilePath = filePath;
-//     })
-//     .catch(err => console.log(err));
-// })
