@@ -26,4 +26,9 @@ describe("restaurants", () => {
       });
     expect(res.status).toBe(201);
   });
+
+  it("gets restaurant by id", async () => {
+    const res = await request(server).get("/user/1/restaurants/1");
+    expect(res.status).toBe(200);
+  });
 });
