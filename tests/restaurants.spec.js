@@ -11,4 +11,19 @@ describe("restaurants", () => {
     const res = await request(server).get("/user/2/restaurants");
     expect(res.status).toEqual(200);
   });
+
+  it("adds a restaurant", async () => {
+    const res = await request(server)
+      .post("/user/1/restaurants")
+      .send({
+        user_id: 1,
+        restaurant_name: "Occhato",
+        city: "philly",
+        state: "PA",
+        zip: "19143",
+        street_address: "Chestnut st",
+        cuisine: "Sushi"
+      });
+    expect(res.status).toBe(201);
+  });
 });

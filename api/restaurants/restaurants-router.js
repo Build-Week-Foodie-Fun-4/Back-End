@@ -20,7 +20,6 @@ router.get("/:id/restaurants", async (req, res) => {
 
 // add restaurant
 router.post("/:id/restaurants", restValidation, (req, res) => {
-  console.log(req.body);
   Restaurants.add(req.body)
 
     .then(rest => {
