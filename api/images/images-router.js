@@ -4,6 +4,7 @@ const Images = require("./images-model");
 
 let url = "https://foodie-fun-be.herokuapp.com";
 
+// post restaurant image by restaurant id
 router.post("/restaurants/:id", (req, res) => {
   upload(req, res, err => {
     if (err) {
@@ -16,6 +17,7 @@ router.post("/restaurants/:id", (req, res) => {
   });
 });
 
+// post dish image by dish id
 router.post("/dishes/:id", (req, res) => {
   upload(req, res, err => {
     if (err) {
@@ -34,6 +36,7 @@ router.post("/dishes/:id", (req, res) => {
   });
 });
 
+// delete dish by id
 router.delete("/dishes/:id", (req, res) => {
   Images.deleteDishImg(req.params.id)
     .then(count => {
@@ -50,6 +53,7 @@ router.delete("/dishes/:id", (req, res) => {
     });
 });
 
+// delete restaurant by id
 router.delete("/restaurants/:id", (req, res) => {
   Images.deleteRestImg(req.params.id)
     .then(count => {
