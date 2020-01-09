@@ -18,7 +18,6 @@ module.exports = (req, res, next) => {
           Auth.findBy({ email })
             .first()
             .then(user => {
-              console.log(user);
               if (user) {
                 res.status(400).json("That email already exists. Please login");
               } else {

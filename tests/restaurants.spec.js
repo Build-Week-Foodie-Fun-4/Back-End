@@ -31,4 +31,19 @@ describe("restaurants", () => {
     const res = await request(server).get("/user/1/restaurants/1");
     expect(res.status).toBe(200);
   });
+
+  it("adds a restaurant review", async () => {
+    const res = await request(server)
+      .post("/user/1/restaurants/1/reviews")
+      .send({
+        user_id: 1,
+        restaurant_name: "Occhato",
+        city: "philly",
+        state: "PA",
+        zip: "19143",
+        street_address: "Chestnut st",
+        cuisine: "Sushi"
+      });
+    expect(res.status).toBe(201);
+  });
 });

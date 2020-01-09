@@ -21,9 +21,7 @@ router.get("/:id/restaurants", async (req, res) => {
 // add restaurant
 router.post("/:id/restaurants", restValidation, (req, res) => {
   Restaurants.add(req.body)
-
     .then(rest => {
-      console.log(rest);
       if (rest) {
         res.status(201).json(rest);
       } else {
@@ -39,7 +37,6 @@ router.post("/:id/restaurants", restValidation, (req, res) => {
 router.get("/:id/restaurants/:restid", (req, res) => {
   Restaurants.findById(req.params.restid)
     .then(rest => {
-      console.log(rest);
       if (rest) {
         res.status(200).json(rest);
       } else {
