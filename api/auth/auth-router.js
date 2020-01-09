@@ -4,7 +4,7 @@ const Users = require("../users/users-model");
 const signToken = require("../../helpers/signToken");
 const validateRegistration = require("../../middleware/registration-validation");
 
-router.post("/register", (req, res) => {
+router.post("/register", validateRegistration, (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10);
   user.password = hash;
@@ -15,6 +15,7 @@ router.post("/register", (req, res) => {
         token: token,
         id: saved.id,
         username: saved.username,
+        email: saved.email,
         city: saved.city,
         state: saved.state,
         message: `Welcome ${user.username}!`
