@@ -94,7 +94,6 @@ router.post("/:id/restaurants/:restid/reviews", (req, res) => {
       }
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json("Database Error");
     });
 });
@@ -121,7 +120,7 @@ router.get("/:id/restaurants/:restid/reviews", (req, res) => {
   Reviews.findRestRevByRestId(req.params.restid)
     .then(review => {
       if (review) {
-        res.status(201).json(review);
+        res.status(200).json(review);
       } else {
         res.status(404).json("Restaurant does not have any reviews");
       }
