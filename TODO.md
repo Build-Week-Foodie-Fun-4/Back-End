@@ -1,1 +1,3 @@
-- add validation to dish review add and update
+- QUESTIONS:
+
+In dish-middleware, how to do a find by dish name, but only for a particular restaurant?
