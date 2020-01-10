@@ -12,7 +12,7 @@ describe("dishes", () => {
       .post("/user/1/restaurants/1/dishes")
       .send({
         restaurant_id: 1,
-        dish_name: "spaghetti",
+        dish_name: "spoohetti",
         price: "10.00",
         dish_review: "meh",
         dish_rating: 3
@@ -27,6 +27,31 @@ describe("dishes", () => {
         dish_review: "it was very expensive"
       });
     expect(res.status).toBe(201);
+  });
+
+  it("errors if user sent incomplete data when adding a dish", async () => {
+    const res = await request(server)
+      .post("/user/1/restaurants/1/dishes")
+      .send({
+        dish_name: "tacos",
+        price: "10.00",
+        dish_review: "meh",
+        dish_rating: 3
+      });
+    expect(res.status).toBe(401);
+  });
+
+  it("errors if user adds dish that already exists for a restaurant", async () => {
+    const res = await request(server)
+      .post("/user/1/restaurants/1/dishes")
+      .send({
+        restaurant_id: 2,
+        dish_name: "burger",
+        price: "10.00",
+        dish_review: "meh",
+        dish_rating: 3
+      });
+    expect(res.status).toBe(401);
   });
 
   it("gets a dish by id", async () => {

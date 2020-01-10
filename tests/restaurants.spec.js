@@ -27,6 +27,20 @@ describe("restaurants", () => {
     expect(res.status).toBe(201);
   });
 
+  it("errors if user sent incomplete data when adding a restaurant", async () => {
+    const res = await request(server)
+      .post("/user/1/restaurants/")
+      .send({
+        user_id: 1,
+        city: "philly",
+        state: "PA",
+        zip: "19143",
+        street_address: "Chestnut st",
+        cuisine: "Pizza"
+      });
+    expect(res.status).toBe(401);
+  });
+
   it("gets restaurant by id", async () => {
     const res = await request(server).get("/user/1/restaurants/1");
     expect(res.status).toBe(200);

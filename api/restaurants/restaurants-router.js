@@ -3,6 +3,7 @@ const Restaurants = require("./restaurants-model");
 const Reviews = require("../reviews/restaurantReviewModel");
 const Dishes = require("../reviews/dishesModel");
 const restValidation = require("../../middleware/restaurant-middleware");
+const dishValidation = require("../../middleware/dish-middleware");
 
 // get all restaurants by user
 router.get("/:id/restaurants", async (req, res) => {
@@ -163,7 +164,7 @@ router.put("/:id/restaurants/:restid/reviews/:revid", async (req, res) => {
 });
 
 // add dish
-router.post("/:id/restaurants/:restid/dishes", (req, res) => {
+router.post("/:id/restaurants/:restid/dishes", dishValidation, (req, res) => {
   Dishes.addDish(req.body)
     .then(dish => {
       if (dish) {

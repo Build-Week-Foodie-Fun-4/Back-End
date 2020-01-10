@@ -23,7 +23,6 @@ router.post("/dishes/:id", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(req.file);
       let imgurl = `https://foodie-fun-be.herokuapp.com/${req.file.path}`;
       Images.addDishImage(imgurl, req.params.id)
         .then(img => {
