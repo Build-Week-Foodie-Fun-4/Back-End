@@ -13,13 +13,7 @@ const server = express();
 server.use(express.static("./public"));
 
 server.use(helmet());
-server.use(
-  cors({
-    credentials: true,
-    origin: "https://foodie-fun-4.firebaseapp.com/",
-    allowedHeaders: ["Content-Type", "Authorization"]
-  })
-);
+server.use(cors());
 server.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
